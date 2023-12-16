@@ -36,6 +36,7 @@ def index(request):
             "sensed_temperature": city_weather["main"]["feels_like"],
             "description": city_weather["weather"][0]["description"],
             "icon": city_weather["weather"][0]["icon"],
+            "humidity": city_weather["main"]["humidity"],
         }
         weather_data.append(weather)
 
