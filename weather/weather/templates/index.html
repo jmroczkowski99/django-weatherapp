@@ -20,7 +20,10 @@
 </form>
 {% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
 <div>{% for weather in weather_data %}</div>
-<div>{{weather.city_name}}</div>
+<div>
+    {{weather.city_name}}
+    <a href="{% url 'delete_city' city_name=weather.city_name %}">DELETE</a>
+</div>
 <div>{{weather.temperature}}</div>
 <div>{{weather.sensed_temperature}}</div>
 <div>{{weather.description}}</div>

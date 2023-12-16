@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect, get_object_or_404
 from django.conf import settings
 import requests
 from .models import City
@@ -40,3 +40,8 @@ def index(request):
         weather_data.append(weather)
 
     return render(request, "index.html", {"weather_data": weather_data, "form": form, "error_message": error_message})
+
+
+def delete_city(request, city_name):
+    get_object_or_404(City, name=city_name).delete()
+    return redirect("homepage")
