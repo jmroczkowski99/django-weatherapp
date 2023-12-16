@@ -5,10 +5,31 @@
     <title>Title</title>
 </head>
 <body>
-<div>{{weather.city_name}}</div>
-<div>{{weather.temperature}}</div>
-<div>{{weather.sensed_temperature}}</div>
+<form method="POST">
+    {% csrf_token %}
+    <div class="field has-addons">
+        <div class="control is-expanded">
+            {{ form.name }}
+        </div>
+        <div class="control">
+            <button class="button is-info">
+                Add City
+            </button>
+        </div>
+    </div>
+</form>
+{% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
+<div>{% for weather in weather_data %}</div>
+<div>
+    City: {{weather.city_name}}
+    <a href="{% url 'delete_city' city_name=weather.city_name %}">DELETE</a>
+</div>
+<div>Temperature: {{weather.temperature}}°C</div>
+<div>Sensed Temperature: {{weather.sensed_temperature}}°C</div>
+<div>Humidity: {{weather.humidity}}%</div>
+<div><img src="http://openweathermap.org/img/w/{{ weather.icon }}.png" alt="Image"></div>
 <div>{{weather.description}}</div>
-<div>{{weather.icon}}</div>
+<div>-----------------------------------</div>
+{% endfor %}
 </body>
 </html>
