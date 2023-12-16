@@ -13,7 +13,7 @@ def index(request):
     if request.method == "POST":
         form = CityForm(request.POST)
         if form.is_valid():
-            city_name = form.cleaned_data["name"]
+            city_name = form.cleaned_data["name"].title()
             if City.objects.filter(name=city_name).count() == 0:
                 r = requests.get(url.format(city_name, api_key)).json()
                 if r["cod"] == 200:
