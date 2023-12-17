@@ -2,34 +2,76 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>What's the weather like?</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.6.2/css/bulma.css" />
 </head>
 <body>
-<form method="POST">
-    {% csrf_token %}
-    <div class="field has-addons">
-        <div class="control is-expanded">
-            {{ form.name }}
+    <section class="hero is-dark">
+        <div class="hero-body">
+            <div class="container">
+                <h1 class="title">
+                    What's the weather like?
+                </h1>
+            </div>
         </div>
-        <div class="control">
-            <button class="button is-info">
-                Add City
-            </button>
+    </section>
+    <section class="section">
+        <div class="container">
+            <div class="columns">
+                <div class="column is-offset-4 is-4">
+                    <form method="POST">
+                        {% csrf_token %}
+                        <div class="field has-addons">
+                            <div class="control is-expanded">
+                                {{ form.name }}
+                            </div>
+                            <div class="control">
+                                <button class="button is-dark">
+                                    Add City
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+                    <div>{% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}</div>
+                </div>
+            </div>
         </div>
-    </div>
-</form>
-{% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
-<div>{% for weather in weather_data %}</div>
-<div>
-    City: {{weather.city_name}}
-    <a href="{% url 'delete_city' city_name=weather.city_name %}">DELETE</a>
-</div>
-<div>Temperature: {{weather.temperature}}°C</div>
-<div>Sensed Temperature: {{weather.sensed_temperature}}°C</div>
-<div>Humidity: {{weather.humidity}}%</div>
-<div><img src="http://openweathermap.org/img/w/{{ weather.icon }}.png" alt="Image"></div>
-<div>{{weather.description}}</div>
-<div>-----------------------------------</div>
-{% endfor %}
+    </section>
+    <section class="section">
+        <div class="container">
+            <div class="columns">
+                <div class="column is-offset-4 is-4">
+                    {% for weather in weather_data %}
+                    <div class="box">
+                        <article class="media">
+                            <div class="media-left">
+                                <figure class="image is-50x50">
+                                    <img src="http://openweathermap.org/img/w/{{ weather.icon }}.png" alt="Image">
+                                </figure>
+                            </div>
+                            <div class="media-content">
+                                <div class="content">
+                                    <p>
+                                        <span class="title">{{ weather.city_name }}</span>
+                                        <br>
+                                        <span class="subtitle">Temperature: {{ weather.temperature }}°C</span>
+                                        <br>
+                                        <span class="subtitle">Sensed Temperature: {{ weather.sensed_temperature }}°C</span>
+                                        <br>
+                                        <span class="subtitle">Humidity: {{ weather.humidity }}%</span>
+                                        <br> {{ weather.description }}
+                                        <br> <a href="{% url 'delete_city' city_name=weather.city_name %}">DELETE</a>
+                                    </p>
+                                </div>
+                            </div>
+                        </article>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </section>
 </body>
 </html>
