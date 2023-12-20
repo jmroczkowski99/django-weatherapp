@@ -1,9 +1,10 @@
 import pytest
 import sys
-sys.path.append("..")
 from weatherapp.models import City
 
+sys.path.append("..")
 pytestmark = pytest.mark.django_db
+
 
 class TestPostModel:
     def test_str_return(self):
