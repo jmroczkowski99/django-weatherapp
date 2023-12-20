@@ -6,7 +6,7 @@ sys.path.append("..")
 pytestmark = pytest.mark.django_db
 
 
-class TestPostModel:
+class TestWeatherModel:
     def test_str_return(self):
         new_city = City.objects.create(name="Gryfice")
         assert new_city.name == "Gryfice"
